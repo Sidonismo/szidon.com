@@ -1,0 +1,30 @@
+<% //huhu() %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+const apiUrl = "nastroje";
+async function getJson (){
+const response = await fetch(apiUrl);
+const data = await response.json();
+const {Obsah} = data;
+document.getElementById('data').textContent = Obsah;
+}
+getJson();
+    </script>
+    <title><%= //title %></title>
+</head>
+<body for="html-export" >    
+  <div id="markdown-preview" class="mume markdown-preview"> 
+
+    <h1><%= //title %></h1> 
+
+    <button id="fetchUserDataBtn">Click</button> 
+   <div id="response"> <%- //result %> </div>
+   <div id="data"></div>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<% //huhu() %>
+  <!DOCTYPE html>
+  <html lang="cs">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="cz,en">
+    <meta name="Description" content="Szidon & Sidon web portfolio & blog">
+    <meta name="keywords"
+      content="javascript, js, html, web, programování, programovat, aplikace, tahák, stránky, framwork, css, es6, html5, css3" />
+    <meta name="robots" content="index,follow, archive">
+    <link id="favicon" type="image/png" rel="shortcut icon" href="images/favicon.png" sizes="16x16">
+    <link rel="stylesheet" href="/css/default.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>
+      <%= title %>
+    </title>
+  </head>
+
+  <body for="html-export">
+    <div id="container">
+      <!-- Navbar-top -->
+      <header>
+        <div id="navbar-top">
+          <a href="/"><img src="images/logo.png" class="logo" alt="Szidon.com"></a>
+        </div>
+      </header>
+      <!-- Main -->
+      <!-- Swiper -->
+    </div>
+    <div id="markdown-preview" class="mume markdown-preview">
+      <!-- Header-img -->
+      <figure id="header-img">
+        <h1 class="title">
+          <%= title %>
+        </h1>
+      </figure>
+      <em id="uvod"></em>
+      <div id="obsah"></div>
+    </div>
+    <script>
+      const apiUrl = "nastroje";
+      async function getJson() {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        let { Obsah, Popis } = data;
+        Obsah = marked(Obsah);
+        Popis = marked(Popis);
+        document.getElementById('uvod').innerHTML = Popis;
+        document.getElementById('obsah').innerHTML = Obsah;
+        hljs.initHighlighting.called = false;
+        hljs.initHighlighting();
+      }
+
+
+      getJson();
+
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
+    <script src="/js/prism.js"></script>
+    <script>
+      console.log('bla');
+    </script>
+  </body>
+
+  </html>
