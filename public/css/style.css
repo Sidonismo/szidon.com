@@ -33,8 +33,14 @@ html, body {
   margin-top: 5em;
 }
 
-em p {
+#uvod {
   font-style: italic;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+em {
+  font-style: italic;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 header {
@@ -57,7 +63,7 @@ header {
 }
 
 #navbar-top {
-  background-color: #346192;
+  background-color: #ffffff;
   color: #000;
   height: 90px;
   display: flex;
@@ -70,7 +76,8 @@ header {
 }
 
 .logo {
-  left: 0.5em;
+  margin: 5em;
+  left: 0;
   height: inherit;
   line-height: inherit;
   margin: 0;
@@ -79,6 +86,7 @@ header {
   top: 0.5em;
   height: 72px;
   width: auto;
+  z-index: 10001;
 }
 
 /**
@@ -243,6 +251,10 @@ code.lang-javascript {
   font-size: 1em !important;
 }
 
+code.lang-js {
+  font-size: 1em !important;
+}
+
 code.lang-html {
   font-size: 1em !important;
 }
@@ -328,10 +340,10 @@ html body>:first-child {
 }
 
 html body h1, html body h2, html body h3, html body h4, html body h5, html body h6 {
-  line-height: 1.2;
+  line-height: 2;
   margin-top: 1em;
   margin-bottom: 16px;
-  color: #000
+  color: rgb(9, 13, 41)
 }
 
 html body h1 {
@@ -358,6 +370,7 @@ html body h4 {
 
 html body h5 {
   font-size: 1.1em;
+  text-decoration: underline double rgba(223, 147, 34, 0.267);
   font-weight: 600
 }
 
@@ -368,10 +381,6 @@ html body h6 {
 
 html body h1, html body h2, html body h3, html body h4, html body h5 {
   font-weight: 600
-}
-
-html body h5 {
-  font-size: 1em
 }
 
 html body h6 {
