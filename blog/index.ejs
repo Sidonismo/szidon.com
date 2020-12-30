@@ -40,7 +40,7 @@
             <h1 id="title">
                 <%= title %>
             </h1>
-            <em id="uvod"></em>
+            <div id="uvod"></div>
             <!-- zde se načte obsah -->
         </main>
         <footer>
@@ -50,25 +50,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
     <script src="/js/highlight.js"></script>
     <script>
-        //důležité pro fetch po částech, ještě přidělat count fetch
-        //pocitadlo = 0;
-        // const myURL = 'tahak/count';
-        // const myHeaders = new Headers();
-        // myHeaders.append('Content-Type', 'text/plain');
-        // const myRequest = new Request(myURL, {
-        //     method: 'GET',
-        //     headers: myHeaders,
-        // });
-        // fetch(myRequest)
-        //     .then(response => {
-        //         console.log('Response: ', response);
-        //         return response.text();
-        //     })
-        //     .then(pdata => {
-        //         // Here's a list of repos!
-        //         pocitadlo = Number(pdata);
-        //         console.log(pdata);
-        //     });
+
+        ppocitadlo = null;
+
+        function returnCount() {
+
+            //důležité pro fetch po částech, ještě přidělat count fetch
+            //fetchuje počet článků a zapíše do ppocitadlo
+
+            const myURL = 'tahak/count';
+            const myHeaders = new Headers();
+            myHeaders.append('Content-Type', 'text/plain');
+            const myRequest = new Request(myURL, {
+                method: 'GET',
+                headers: myHeaders,
+            });
+
+            fetch(myRequest)
+                .then(response => response.json())
+                .then(pdata => {
+                    // Here's a list of repos!
+                    ppocitadlo = Number(pdata);
+                });
+        }
+        returnCount()
+
         const URL =
             "tahak";
         document.addEventListener("DOMContentLoaded", () => {
@@ -83,13 +89,14 @@
             //getData();
         });
         function handleIntersect(entries) {
-            if (pocitadlo === 4) { return; }
+            if (pocitadlo === ppocitadlo) { return; }
 
             if (entries[0].isIntersecting) {
                 console.warn("something is intersecting with the viewport");
                 getData();
             }
         }
+
         pocitadlo = 0;
         function getData() {
             pocitadlo++;

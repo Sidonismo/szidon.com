@@ -55,7 +55,7 @@ var url = require('url');
 router.get('/', function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', 'http://wesmir.cz/');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.render('index', { title: 'Szidon.com - Javascript ES6 tahák' });
+  res.render('index', { title: 'Javascript ES6 tahák' });
   let ref = (req.header('referer') || '').split('/')[2];
   ref = req.headers.referer;
 

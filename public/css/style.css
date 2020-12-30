@@ -33,9 +33,14 @@ html, body {
   margin-top: 5em;
 }
 
-#uvod {
+div#uvod {
   font-style: italic;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1.2em;
+}
+
+#uvod {
+  text-align: justify;
 }
 
 em {
