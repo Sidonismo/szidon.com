@@ -25,12 +25,23 @@
         <header>
             <div id="navbar-top">
                 <a href="/"><img src="images/logo.png" class="logo" alt="Szidon.com"></a>
-                <h1 id="hlavicka">Szidon.com <% title %>
+                <h1 id="hlavicka">Szidon.com
                 </h1>
+                <figure id="upozorneni">
+                    <blockquote>
+                        <p><b>X</b> Pozor, jedná se o Lazy-load stránku, další obsah se vám načte teprve na konci
+                            stránky!
+                        </p>
+                    </blockquote>
+                </figure>
             </div>
         </header>
         <main id="markdown-preview" class="mume markdown-preview">
-            <!-- images will be loaded here with figure and figcaption -->
+            <h1 id="title">
+                <%= title %>
+            </h1>
+            <em id="uvod"></em>
+            <!-- zde se načte obsah -->
         </main>
         <footer>
             <p>&copy; 2020 <a href="https://szidon.com">Szidon.com</a></p>
@@ -39,11 +50,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
     <script src="/js/highlight.js"></script>
     <script>
+        //důležité pro fetch po částech, ještě přidělat count fetch
+        //pocitadlo = 0;
+        // const myURL = 'tahak/count';
+        // const myHeaders = new Headers();
+        // myHeaders.append('Content-Type', 'text/plain');
+        // const myRequest = new Request(myURL, {
+        //     method: 'GET',
+        //     headers: myHeaders,
+        // });
+        // fetch(myRequest)
+        //     .then(response => {
+        //         console.log('Response: ', response);
+        //         return response.text();
+        //     })
+        //     .then(pdata => {
+        //         // Here's a list of repos!
+        //         pocitadlo = Number(pdata);
+        //         console.log(pdata);
+        //     });
         const URL =
             "tahak";
         document.addEventListener("DOMContentLoaded", () => {
-            //set up the IntersectionObserver to load more images if the footer is visible.
-            //URL - https://gist.githubusercontent.com/prof3ssorSt3v3/1944e7ba7ffb62fe771c51764f7977a4/raw/c58a342ab149fbbb9bb19c94e278d64702833270/infinite.json
+            //nastavení IntersectionObserver aby načetl více obsahu, vždy když je blízko footer.
             let options = {
                 root: null,
                 rootMargins: "0px",
@@ -51,7 +80,6 @@
             };
             const observer = new IntersectionObserver(handleIntersect, options);
             observer.observe(document.querySelector("footer"));
-            //an initial load of some data
             //getData();
         });
         function handleIntersect(entries) {
@@ -65,18 +93,19 @@
         pocitadlo = 0;
         function getData() {
             pocitadlo++;
+            // vytvoří z fetche obsah do main
             let main = document.querySelector("main");
             console.log("fetch some JSON data");
             fetch(URL + '/' + pocitadlo)
                 .then(response => response.json())
                 .then(data => {
-                    // data.items[].img, data.items[].name
-
+                    let uvod = document.getElementById('uvod');
                     let fig = document.createElement("figure");
                     let nadpis = document.createElement("h2");
                     let fc = document.createElement("figcaption");
                     let img = document.createElement("img");
                     let article = document.createElement("article");
+                    if (pocitadlo === 1) { uvod.innerText = data.Popis; }
                     img.src = data.obrazek.formats.medium.url;
                     img.alt = data.obrazek.hash;
                     fc.textContent = data.Nadpis;
@@ -94,6 +123,11 @@
 
                 });
         }
+        //odstraňuje po kliknutí upozornení
+        let upoz = document.querySelector('#upozorneni');
+        upoz.addEventListener('click', event => {
+            upoz.outerHTML = null;
+        })
     </script>
 </body>
 
