@@ -25,21 +25,12 @@
         <header>
             <div id="navbar-top">
                 <a href="/"><img src="images/logo.png" class="logo" alt="Szidon.com"></a>
-                <h1 id="hlavicka">
-                    <%= title %>
+                <h1 id="hlavicka">Szidon.com <% nadpis %>
                 </h1>
-                <figure id="upozorneni">
-                    <blockquote>
-                        <p><b>X</b> Pozor, jedná se o Lazy-load stránku, další obsah se vám načte teprve na konci
-                            stránky!
-                        </p>
-                    </blockquote>
-                </figure>
-
             </div>
         </header>
         <main id="markdown-preview" class="mume markdown-preview">
-            <!-- zde se načte obsah -->
+            <!-- images will be loaded here with figure and figcaption -->
         </main>
         <footer>
             <p>&copy; 2020 <a href="https://szidon.com">Szidon.com</a></p>
@@ -51,45 +42,27 @@
         const URL =
             "tahak";
         document.addEventListener("DOMContentLoaded", () => {
-            //nastavení IntersectionObserver aby načetl více obsahu, vždy když je blízko footer.
+            //set up the IntersectionObserver to load more images if the footer is visible.
+            //URL - https://gist.githubusercontent.com/prof3ssorSt3v3/1944e7ba7ffb62fe771c51764f7977a4/raw/c58a342ab149fbbb9bb19c94e278d64702833270/infinite.json
             let options = {
                 root: null,
-                rootMargins: '-300px 0',
-                threshold: 0
+                rootMargins: "0px",
+                threshold: 0.5
             };
             const observer = new IntersectionObserver(handleIntersect, options);
             observer.observe(document.querySelector("footer"));
+            //an initial load of some data
             //getData();
         });
         function handleIntersect(entries) {
-            if (pocitadlo === 0) { return; }
+            if (pocitadlo === 4) { return; }
 
             if (entries[0].isIntersecting) {
                 console.warn("something is intersecting with the viewport");
                 getData();
             }
         }
-        //důležité pro fetch po částech, ještě přidělat count fetch
-        // const myURL = 'tahak/count';
-        // const myHeaders = new Headers();
-        // myHeaders.append('Content-Type', 'text/plain');
-
-        // const myRequest = new Request(myURL, {
-        //     method: 'GET',
-        //     headers: myHeaders,
-        // });
-        // fetch(myRequest)
-        //     .then(response => {
-        //         console.log('Response: ', response);
-        //         return response.text();
-        //     })
-        //     .then(pdata => {
-        //         // Here's a list of repos!
-        //         pocitadlo = Number(pdata);
-        //         console.log(pdata);
-        //     });
-
-        let pocitadlo = 0;
+        pocitadlo = 0;
         function getData() {
             pocitadlo++;
             let main = document.querySelector("main");
@@ -97,8 +70,8 @@
             fetch(URL + '/' + pocitadlo)
                 .then(response => response.json())
                 .then(data => {
-                    pocitadlo++;
-                    // vytvoří z fetche obsah do main
+                    // data.items[].img, data.items[].name
+
                     let fig = document.createElement("figure");
                     let nadpis = document.createElement("h2");
                     let fc = document.createElement("figcaption");
@@ -116,19 +89,11 @@
                     main.appendChild(nadpis);
                     main.appendChild(fig);
                     main.appendChild(article);
-                    //zvýrazňuje kód v code
                     hljs.initHighlighting.called = false;
                     hljs.initHighlighting();
 
-
                 });
-
         }
-        //odstraňuje po kliknutí upozornení
-        let upoz = document.querySelector('#upozorneni');
-        upoz.addEventListener('click', event => {
-            upoz.outerHTML = null;
-        })
     </script>
 </body>
 

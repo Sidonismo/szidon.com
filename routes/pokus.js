@@ -1,4 +1,3 @@
-
 var express = require('express');
 
 var router = express.Router();
@@ -25,8 +24,6 @@ var md = require("markdown-it")();
 const matter = require('gray-matter');
 const path = require('path');
 const fs = require('fs');
-var http = require('http');
-var url = require('url');
 
 // let filepath = '/home/bitnami/projects/sample/blog/article.md';
 // let directoryOfFile = path.dirname(filepath);
@@ -47,19 +44,14 @@ var url = require('url');
 //console.log(result());
 //přidat do render -> result:result()
 
-
-
-
-
-
 router.get('/', function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://wesmir.cz/');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.render('index', { title: 'Szidon.com - Javascript ES6 tahák' });
-  let ref = (req.header('referer') || '').split('/')[2];
-  ref = req.headers.referer;
+    res.setHeader('Access-Control-Allow-Origin', 'http://wesmir.cz/');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.render('pokus', { title: ' - Javascript ES6 tahák' });
+    let ref = (req.header('referer') || '').split('/')[2];
+    ref = req.headers.referer;
 
-  console.log(ref);
+    console.log(ref);
 });
 
 

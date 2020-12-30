@@ -854,3 +854,44 @@ footer {
   padding: 1rem 3rem 3rem 3rem;
   margin-top: 0;
 }
+
+figure img {
+  width: 100%;
+}
+
+main h2 {
+  color: #55a532;
+  margin-top: 3em !important;
+}
+
+figure {}
+
+figcaption {
+  font-size: 1em;
+  font-family: monospace;
+}
+
+main figcaption {
+  font-size: 0rem;
+  font-family: inherit;
+}
+
+#navbar-top h1 {
+  margin-right: 3%;
+  font-size: 2vmax;
+  color: #122535;
+}
+
+#upozorneni {
+  position: fixed !important;
+  margin-right: auto;
+  margin-left: 50%;
+  width: 14rem;
+  top: 14em !important;
+  z-index: 1000254;
+}
+
+blockquote b {
+  color: rgb(90, 4, 30);
+  font-weight: bold;
+}
