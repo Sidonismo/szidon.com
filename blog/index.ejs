@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="/css/default.css">
     <link rel="stylesheet" href="/css/style.css">
 
+    <script src="https://kit.fontawesome.com/1e8aad7780.js" crossorigin="anonymous"></script>
+
     <title>
         <%= title %>
     </title>
@@ -37,9 +39,18 @@
             </div>
         </header>
         <main id="markdown-preview" class="mume markdown-preview">
+
             <h1 id="title">
                 <%= title %>
             </h1>
+            <svg xmlns="http://www.w3.org/2000/svg" width="750" height="65.853" viewBox="0 0 11.041 17.424">
+                <path id="mushroom"
+                    d="M9.753 4.746C9 5.423 8.929 5.7 8.505 6.162c-.309.389-1.292.907-.592 1.349.358.326 1.31-.983 1.13-.439.052 2.101-.772 4.996-.495 7.1.053 1.06.102 2.248 1.132 3.076.531.488 1.275-.151 1.287-.591.24-.526-.15-1.036-.558-1.447-.77-1.035-.86-2.263-.603-3.406.159-1.468-.263-3.356-.098-4.823.469.032 1.14.69 1.258.03-.026-.797-.22-1.176-.688-1.661-.468-.486-.174-1.486-.525-.604zm-3.95 12.351c2.124-1.424 1.727-3.977 1.89-5.978-.006-1.955-1.304-5.72-.83-7.651 1.435.372 3.12-.03 1.765-.864C7.272 1.77 5.92-1.016 5.527.39 5.133 1.8 3.639 2.375 3.325 3.336c-.402 1.228 2.327-.876 2.57.275.091 1.886.115 5.336.475 7.012.361 1.677-.62 3.483-2.002 4.622-.668.76.373 2.565 1.436 1.852zm.032-.772c.557-.79.328-1.93-.07-2.914-.278-.651-.504-1.317-.832-1.955C4.098 9.93 2.91 8.524 2.314 6.922c-.26-.511.607-.17.85-.406.417-.04.535-.587-.006-.703-.903-.297-1.612-1.048-2.478-1.43-.533-.014-.016.805-.25 1.103C.328 6.07-.137 6.558.04 7.22c.42.323.73-.406 1.12-.473.495-.246.673.492.854.824.722 1.485 1.4 2.992 2.312 4.412.583 1.105.5 2.327.042 3.26-.098.539.504 1.224 1.093 1.282a.426.426 0 00.374-.201z"
+                    fill="#9ac0e4" fill-opacity=".042" />
+            </svg>
+            <span style="font-size: 3em; color: rgb(230, 207, 1)">
+                <i class="fab fa-js-square"></i>
+            </span>
             <div id="uvod"></div>
             <!-- zde se načte obsah -->
         </main>
@@ -82,7 +93,7 @@
             let options = {
                 root: null,
                 rootMargins: "0px",
-                threshold: 0.5
+                threshold: [0],
             };
             const observer = new IntersectionObserver(handleIntersect, options);
             observer.observe(document.querySelector("footer"));
@@ -97,9 +108,21 @@
             }
         }
 
-        pocitadlo = 0;
+
+        let pocitadlo = 0;
         function getData() {
             pocitadlo++;
+            if ((pocitadlo % 2) === 0) {
+                document.body.style.backgroundColor = ' #b3a28831';
+                document.body.style.backgroundImage = 'none';
+            } else {
+                document.body.style.backgroundColor = ' #889fb342';
+                document.body.style.backgroundImage = 'url(images/mushrooms.svg)';
+                function inVis() {
+                    document.body.style.backgroundImage = 'none';
+                }
+                setTimeout(inVis, 700);
+            }
             // vytvoří z fetche obsah do main
             let main = document.querySelector("main");
             console.log("fetch some JSON data");
@@ -115,6 +138,7 @@
                     if (pocitadlo === 1) { uvod.innerText = data.Popis; }
                     img.src = data.obrazek.formats.medium.url;
                     img.alt = data.obrazek.hash;
+                    article.id = 'mush' + '-' + pocitadlo;
                     fc.textContent = data.Nadpis;
                     nadpis.textContent = data.Nadpis;
                     obsah = marked(data.obsah);
@@ -127,6 +151,7 @@
                     main.appendChild(article);
                     hljs.initHighlighting.called = false;
                     hljs.initHighlighting();
+                    mushVis();
 
                 });
         }
@@ -135,6 +160,16 @@
         upoz.addEventListener('click', event => {
             upoz.outerHTML = null;
         })
+        function mushVis() {
+            document.getElementById("mush-1").style.backgroundImage = 'url(images/mushroom.svg)';
+            document.getElementById("mush-1").style['background-repeat'] = 'no-repeat';
+            let mush = document.getElementById("mush-1");
+            mush.onclick = function () { onClick() };
+            function onClick() {
+                document.getElementById("mushroom").style['fill'] = 'green';
+            }
+
+        }
     </script>
 </body>
 
